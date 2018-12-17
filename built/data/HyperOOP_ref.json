@@ -1,0 +1,180 @@
+{
+  "kind": "ModuleDeclaration",
+  "children": [
+    {
+      "kind": "InterfaceDeclaration",
+      "comment": "/** Interface of a parental `Actions` object that keeps information which\r\n *  is necessary to initialize `SubActions` object.\r\n */",
+      "commentText": "Interface of a parental `Actions` object that keeps information which\r\n is necessary to initialize `SubActions` object.",
+      "name": "IActionsParent",
+      "decl": "interface IActionsParent",
+      "children": [
+        {
+          "kind": "PropertySignature",
+          "comment": "/** Renderer that should be called by any `Actions` object for page re-rendering. */",
+          "commentText": "Renderer that should be called by any `Actions` object for page re-rendering.",
+          "name": "Renderer",
+          "decl": "readonly Renderer: IRenderer;"
+        },
+        {
+          "kind": "PropertySignature",
+          "comment": "/** Object of `redoundo.Hist` class is needed for redo/undo functionality. */",
+          "commentText": "Object of `redoundo.Hist` class is needed for redo/undo functionality.",
+          "name": "History",
+          "decl": "readonly History: Hist;"
+        }
+      ]
+    },
+    {
+      "kind": "ClassDeclaration",
+      "comment": "/** Class of `hyperoop` top-level actions. When you properly set new values\r\n *  to entries of the `State` property then the corresponding DOM element will\r\n *  be redrawn automatically. The correspondence between `Actions` object\r\n *  and this DOM element is established by `init` function call.\r\n */",
+      "commentText": "Class of `hyperoop` top-level actions. When you properly set new values\r\n to entries of the `State` property then the corresponding DOM element will\r\n be redrawn automatically. The correspondence between `Actions` object\r\n and this DOM element is established by `init` function call.",
+      "name": "Actions",
+      "decl": "class Actions<S extends {}>",
+      "children": [
+        {
+          "kind": "PropertyDeclaration",
+          "comment": "/** This property, along with the `Remember` property, is used to change\r\n     *  the state of an application and automatically redraw the user interface.\r\n     */",
+          "commentText": "This property, along with the `Remember` property, is used to change\r\n the state of an application and automatically redraw the user interface.",
+          "name": "State",
+          "decl": "readonly State: S;"
+        },
+        {
+          "kind": "PropertyDeclaration",
+          "comment": "/** This property has almost the same functionality as the `State` property,\r\n     *  with the difference that changes made to it can be undone by calling the\r\n     *  `History.undo` method.\r\n     */",
+          "commentText": "This property has almost the same functionality as the `State` property,\r\n with the difference that changes made to it can be undone by calling the\r\n `History.undo` method.",
+          "name": "Remember",
+          "decl": "readonly Remember: S;"
+        },
+        {
+          "kind": "PropertyDeclaration",
+          "comment": "/** You can force redraw of the user interface by calling the `sheduleRender`\r\n     *  method provided by this property. Usually you do not need to call it directly.\r\n     */",
+          "commentText": "You can force redraw of the user interface by calling the `sheduleRender`\r\n method provided by this property. Usually you do not need to call it directly.",
+          "name": "Renderer",
+          "decl": "readonly Renderer: IRenderer;"
+        },
+        {
+          "kind": "PropertyDeclaration",
+          "comment": "/** Object of `redoundo.Hist` class is needed for redo/undo functionality. */",
+          "commentText": "Object of `redoundo.Hist` class is needed for redo/undo functionality.",
+          "name": "History",
+          "decl": "readonly History: Hist;"
+        },
+        {
+          "kind": "Constructor",
+          "comment": "/** Construct an `Action` object, setting the initial `state` to it and optionally describing\r\n     *  the `hist` object of type `redoundo.Hist`. If the `hist` argument is of the `number`\r\n     *  type, the constructor will itself create the `History` object of the given length.\r\n     */",
+          "commentText": "Construct an `Action` object, setting the initial `state` to it and optionally describing\r\n the `hist` object of type `redoundo.Hist`. If the `hist` argument is of the `number`\r\n type, the constructor will itself create the `History` object of the given length.",
+          "decl": "constructor(start: S, hist?: number | Hist);"
+        },
+        {
+          "kind": "MethodDeclaration",
+          "comment": "/** The page is redrawn automatically every time you set a new value for any entry of the `State`\r\n     *  property. To set values for several inputs at once with only one automatic redraw, use\r\n     *  this method, passing it a partial description of the new state and the optional parameter\r\n     *  `remember` (`false` by default). If the value of the parameter `remember` is set to `true`, then\r\n     *  the changes can be undone by calling `History.undo` method.\r\n     */",
+          "commentText": "The page is redrawn automatically every time you set a new value for any entry of the `State`\r\n property. To set values for several inputs at once with only one automatic redraw, use\r\n this method, passing it a partial description of the new state and the optional parameter\r\n `remember` (`false` by default). If the value of the parameter `remember` is set to `true`, then\r\n the changes can be undone by calling `History.undo` method.",
+          "name": "set",
+          "decl": "set(s: Partial<S>, remember?: boolean): void;"
+        },
+        {
+          "kind": "MethodDeclaration",
+          "comment": "/** This method is used to initialize the `Actions` object by an instance of the `IRenderer` interface.\r\n     *  Usually you do not need to call it directly.\r\n     */",
+          "commentText": "This method is used to initialize the `Actions` object by an instance of the `IRenderer` interface.\r\n Usually you do not need to call it directly.",
+          "name": "init",
+          "decl": "init(r: IRenderer): void;"
+        }
+      ]
+    },
+    {
+      "kind": "ClassDeclaration",
+      "comment": "/** Usually, you only need to manually initialize top-level `Action` objects (by calling the `init` function).\r\n * This class is used for lower level action-objects that inherit the necessary properties from higher level\r\n * objects. Thus, you do not need to initialize the `SubActions` of the lower levels manually.\r\n */",
+      "commentText": "Usually, you only need to manually initialize top-level `Action` objects (by calling the `init` function).\r\n This class is used for lower level action-objects that inherit the necessary properties from higher level\r\n objects. Thus, you do not need to initialize the `SubActions` of the lower levels manually.",
+      "name": "SubActions",
+      "decl": "class SubActions<S extends {}> extends Actions<S>",
+      "children": [
+        {
+          "kind": "Constructor",
+          "comment": "/** Construct an `Action` object, setting the initial `state` and parental `Actions`\r\n     *  object. The last will be used for initializing new instance by renderer and history objects.\r\n     */",
+          "commentText": "Construct an `Action` object, setting the initial `state` and parental `Actions`\r\n object. The last will be used for initializing new instance by renderer and history objects.",
+          "decl": "constructor(start: S, parent: IActionsParent);"
+        }
+      ]
+    },
+    {
+      "kind": "FunctionDeclaration",
+      "comment": "/** Initialize DOM element `container` with virtual node `view` and optional\r\n *  `Actions` object `actions`. Calling this function is the only and necessary\r\n *  method of attaching a virtual tree to a DOM element.\r\n */",
+      "commentText": "Initialize DOM element `container` with virtual node `view` and optional\r\n `Actions` object `actions`. Calling this function is the only and necessary\r\n method of attaching a virtual tree to a DOM element.",
+      "name": "init",
+      "decl": "function init(container: HTMLElement, view: LazyVirtualNode, action?: IActionInitializer): IRenderer;"
+    },
+    {
+      "kind": "InterfaceDeclaration",
+      "comment": "/** You may use this interface in order to manually schedule re-rendering. */",
+      "commentText": "You may use this interface in order to manually schedule re-rendering.",
+      "name": "IRenderer",
+      "decl": "interface IRenderer",
+      "children": []
+    },
+    {
+      "kind": "InterfaceDeclaration",
+      "comment": "/** The VDOM representation of an `HTMLElement`. */",
+      "commentText": "The VDOM representation of an `HTMLElement`.",
+      "name": "IVirtualNode",
+      "decl": "interface IVirtualNode<A = {}>",
+      "children": []
+    },
+    {
+      "kind": "TypeAliasDeclaration",
+      "comment": "/** This is a lazy analog of `IVirtualNode`. The difference between two is that the lazy\r\n *  virtual node calculates its properties immediately before rendering of the corresponding\r\n *  DOM node, while any instance of `IVirtualNode` is known in the very beginning of the rendering.\r\n */",
+      "commentText": "This is a lazy analog of `IVirtualNode`. The difference between two is that the lazy\r\n virtual node calculates its properties immediately before rendering of the corresponding\r\n DOM node, while any instance of `IVirtualNode` is known in the very beginning of the rendering.",
+      "name": "LazyVirtualNode",
+      "decl": "type LazyVirtualNode = () => IVirtualNode;"
+    },
+    {
+      "kind": "TypeAliasDeclaration",
+      "comment": "/** Plain component is a function that returns a custom `IVirtualNode`. */",
+      "commentText": "Plain component is a function that returns a custom `IVirtualNode`.",
+      "name": "PlainComponent",
+      "decl": "type PlainComponent<A = {}> = (attributes: A, children: ChildVirtualNode[]) => IVirtualNode<A>;"
+    },
+    {
+      "kind": "TypeAliasDeclaration",
+      "comment": "/** Lazy component function that returns a custom `LazyVirtualNode`. */",
+      "commentText": "Lazy component function that returns a custom `LazyVirtualNode`.",
+      "name": "LazyComponent",
+      "decl": "type LazyComponent<A = {}> = (attributes: A, children: ChildVirtualNode[]) => LazyVirtualNode;"
+    },
+    {
+      "kind": "TypeAliasDeclaration",
+      "comment": "/** A component can be plain or lazy. */",
+      "commentText": "A component can be plain or lazy.",
+      "name": "Component",
+      "decl": "type Component<A = {}> = LazyComponent<A> | PlainComponent<A>;"
+    },
+    {
+      "kind": "TypeAliasDeclaration",
+      "comment": "/** Possible types of child nodes of VDOM tree. */",
+      "commentText": "Possible types of child nodes of VDOM tree.",
+      "name": "ChildVirtualNode",
+      "decl": "type ChildVirtualNode<A = {}> = IVirtualNode<A> | string | number | null;"
+    },
+    {
+      "kind": "TypeAliasDeclaration",
+      "comment": "/** Type of JSX Factory's `children` argument. */",
+      "commentText": "Type of JSX Factory's `children` argument.",
+      "name": "ChildLike",
+      "decl": "type ChildLike = ChildVirtualNode | ChildVirtualNode[];"
+    },
+    {
+      "kind": "FunctionDeclaration",
+      "comment": "/** A JSX factory function that creates an `IVirtualNode` based on a given `name`, which\r\n * can be of type `string` or `PlainComponent`, an optional `attributes` and a `children`\r\n * argument  that describes some set of child virtual nodes.\r\n */",
+      "commentText": "A JSX factory function that creates an `IVirtualNode` based on a given `name`, which\r\n can be of type `string` or `PlainComponent`, an optional `attributes` and a `children`\r\n argument that describes some set of child virtual nodes.",
+      "name": "h",
+      "decl": "function h<A>(name: string | PlainComponent<A>, attributes?: A, ...children: ChildLike[]): IVirtualNode<A>;"
+    },
+    {
+      "kind": "FunctionDeclaration",
+      "comment": "/** A JSX factory function that creates an `LazyVirtualNode` based on `comp` -- a given `LazyComponent`,\r\n *  an optional `attributes` and a `children` argument that describes some set of child virtual nodes.\r\n */",
+      "commentText": "A JSX factory function that creates an `LazyVirtualNode` based on `comp` -- a given `LazyComponent`,\r\n an optional `attributes` and a `children` argument that describes some set of child virtual nodes.",
+      "name": "h",
+      "decl": "function h<A>(comp: LazyComponent<A>, attributes?: A, ...children: ChildLike[]): LazyVirtualNode;"
+    }
+  ],
+  "version": "0.4.2"
+}

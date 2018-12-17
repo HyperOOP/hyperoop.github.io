@@ -1,0 +1,248 @@
+{
+  "kind": "ModuleDeclaration",
+  "children": [
+    {
+      "kind": "InterfaceDeclaration",
+      "comment": "/** Attributes for component `Link` */",
+      "commentText": "Attributes for component `Link`",
+      "name": "ILinkAttributes",
+      "decl": "interface ILinkAttributes",
+      "children": [
+        {
+          "kind": "PropertySignature",
+          "comment": "/** Where to go? Can be a `string` URL or `IToObject` */",
+          "commentText": "Where to go? Can be a `string` URL or `IToObject`",
+          "name": "to",
+          "decl": "to: string | IToObject;"
+        },
+        {
+          "kind": "PropertySignature",
+          "comment": "/** Additional event handler for clicking mouse. */",
+          "commentText": "Additional event handler for clicking mouse.",
+          "name": "onclick",
+          "decl": "onclick?: (e: MouseEvent) => void;"
+        }
+      ]
+    },
+    {
+      "kind": "VariableStatement",
+      "comment": "/** `Link` component that provides application navigation */",
+      "commentText": "`Link` component that provides application navigation",
+      "decl": "const Link: (a: ILinkAttributes, children: (string | IVirtualNode<{}>)[]) => IVirtualNode<{\r\n    href: string;\r\n    onclick(e: MouseEvent): void;\r\n    to: any;\r\n}>;",
+      "name": "Link",
+      "keyword": "const"
+    },
+    {
+      "kind": "InterfaceDeclaration",
+      "comment": "/** Possible attribute for `Link` navigation */",
+      "commentText": "Possible attribute for `Link` navigation",
+      "name": "IToObject",
+      "decl": "interface IToObject",
+      "children": [
+        {
+          "kind": "PropertySignature",
+          "comment": "/**  The path to link to, for example `path/to/store` */",
+          "commentText": "The path to link to, for example `path/to/store`",
+          "name": "pathname",
+          "decl": "pathname?: string;"
+        },
+        {
+          "kind": "PropertySignature",
+          "comment": "/** Query parameters, for example `?model=new&price=low` */",
+          "commentText": "Query parameters, for example `?model=new&price=low`",
+          "name": "search",
+          "decl": "search?: string;"
+        },
+        {
+          "kind": "PropertySignature",
+          "comment": "/** A hash to put in the URL, for example `#product-description` */",
+          "commentText": "A hash to put in the URL, for example `#product-description`",
+          "name": "hash",
+          "decl": "hash?: string;"
+        },
+        {
+          "kind": "PropertySignature",
+          "comment": "/** Application state corresponding to this new location */",
+          "commentText": "Application state corresponding to this new location",
+          "name": "state",
+          "decl": "state: any;"
+        }
+      ]
+    },
+    {
+      "kind": "InterfaceDeclaration",
+      "comment": "/** Contains information about how a path matched the URL */",
+      "commentText": "Contains information about how a path matched the URL",
+      "name": "IMatch",
+      "decl": "interface IMatch",
+      "children": [
+        {
+          "kind": "PropertySignature",
+          "comment": "/** `true` if the entire path was matched, wtithout trailing characters */",
+          "commentText": "`true` if the entire path was matched, wtithout trailing characters",
+          "name": "isExact",
+          "decl": "isExact: boolean;"
+        },
+        {
+          "kind": "PropertySignature",
+          "comment": "/** The path pattern used to match, useful for building nested routes */",
+          "commentText": "The path pattern used to match, useful for building nested routes",
+          "name": "path",
+          "decl": "path: string;"
+        },
+        {
+          "kind": "PropertySignature",
+          "comment": "/** The matched portion of the URL, useful for building nested links */",
+          "commentText": "The matched portion of the URL, useful for building nested links",
+          "name": "url",
+          "decl": "url: string;"
+        },
+        {
+          "kind": "PropertySignature",
+          "comment": "/** Key/value pairs parsed from the URL */",
+          "commentText": "Key/value pairs parsed from the URL",
+          "name": "params",
+          "decl": "params?: {\r\n        [K in string]: string;\r\n    };"
+        }
+      ]
+    },
+    {
+      "kind": "InterfaceDeclaration",
+      "comment": "/** Attributes of the component `Redirect` */",
+      "commentText": "Attributes of the component `Redirect`",
+      "name": "IRedirectAttributes",
+      "decl": "interface IRedirectAttributes",
+      "children": [
+        {
+          "kind": "PropertySignature",
+          "comment": "/** Current location string, optional */",
+          "commentText": "Current location string, optional",
+          "name": "from",
+          "decl": "from?: string;"
+        },
+        {
+          "kind": "PropertySignature",
+          "comment": "/** String representing a new location */",
+          "commentText": "String representing a new location",
+          "name": "to",
+          "decl": "to: string;"
+        }
+      ]
+    },
+    {
+      "kind": "VariableStatement",
+      "comment": "/** `Redirect` component. Rendering it will navigate to a new location */",
+      "commentText": "`Redirect` component. Rendering it will navigate to a new location",
+      "decl": "const Redirect: (a: IRedirectAttributes) => string;",
+      "name": "Redirect",
+      "keyword": "const"
+    },
+    {
+      "kind": "InterfaceDeclaration",
+      "comment": "/** Attributes of target component of `Route` */",
+      "commentText": "Attributes of target component of `Route`",
+      "name": "ITargetAttributes",
+      "decl": "interface ITargetAttributes",
+      "children": [
+        {
+          "kind": "PropertySignature",
+          "comment": "/** Match information */",
+          "commentText": "Match information",
+          "name": "match",
+          "decl": "match: IMatch;"
+        }
+      ]
+    },
+    {
+      "kind": "TypeAliasDeclaration",
+      "comment": "/** Type of `Route` target component */",
+      "commentText": "Type of `Route` target component",
+      "name": "TargetComponent",
+      "decl": "type TargetComponent = Component<ITargetAttributes>;"
+    },
+    {
+      "kind": "InterfaceDeclaration",
+      "comment": "/** Attributes for the `Route` component */",
+      "commentText": "Attributes for the `Route` component",
+      "name": "IRouteAttributes",
+      "decl": "interface IRouteAttributes",
+      "children": [
+        {
+          "kind": "PropertySignature",
+          "comment": "/** Path pattern to compare with `location.pathname`, for example `/user/:id` */",
+          "commentText": "Path pattern to compare with `location.pathname`, for example `/user/:id`",
+          "name": "path",
+          "decl": "path: string;"
+        },
+        {
+          "kind": "PropertySignature",
+          "comment": "/** When true, the `Route` will only match if the path matches the `location.pathname` exactly. */",
+          "commentText": "When true, the `Route` will only match if the path matches the `location.pathname` exactly.",
+          "name": "exact",
+          "decl": "exact: boolean;"
+        },
+        {
+          "kind": "PropertySignature",
+          "comment": "/** A component to render only when the location matches. */",
+          "commentText": "A component to render only when the location matches.",
+          "name": "component",
+          "decl": "component: TargetComponent;"
+        }
+      ]
+    },
+    {
+      "kind": "VariableStatement",
+      "comment": "/** `Route` component renders some UI when a location matches the path */",
+      "commentText": "`Route` component renders some UI when a location matches the path",
+      "decl": "const Route: LazyComponent<IRouteAttributes>;",
+      "name": "Route",
+      "keyword": "const"
+    },
+    {
+      "kind": "InterfaceDeclaration",
+      "comment": "/** Interface of the object that owns a `hyperoop.IRenderer` and can\r\n *  possibly handle location change events.\r\n */",
+      "commentText": "Interface of the object that owns a `hyperoop.IRenderer` and can\r\n possibly handle location change events.",
+      "name": "IRendererOwner",
+      "decl": "interface IRendererOwner",
+      "children": []
+    },
+    {
+      "kind": "ClassDeclaration",
+      "comment": "/** `Router` object that provides routing functionality to a `hyperoop` application */",
+      "commentText": "`Router` object that provides routing functionality to a `hyperoop` application",
+      "name": "Router",
+      "decl": "class Router",
+      "children": [
+        {
+          "kind": "Constructor",
+          "comment": "/** Constructor initializes `Router` with `rOwner` which is usually `hyperoop.Actions`\r\n     *  object and `jsxf` which is usually just `hyperoop.h`.\r\n     */",
+          "commentText": "Constructor initializes `Router` with `rOwner` which is usually `hyperoop.Actions`\r\n object and `jsxf` which is usually just `hyperoop.h`.",
+          "decl": "constructor(rOwner: IRendererOwner, jsxf: JSXFactory);"
+        },
+        {
+          "kind": "MethodDeclaration",
+          "comment": "/** Go to a new location. Argument can be a `string` URL or `IToObject` */",
+          "commentText": "Go to a new location. Argument can be a `string` URL or `IToObject`",
+          "name": "go",
+          "decl": "go(t: string | IToObject): void;"
+        },
+        {
+          "kind": "MethodDeclaration",
+          "comment": "/** Stops a `Router` functionality, useful mainly for tests */",
+          "commentText": "Stops a `Router` functionality, useful mainly for tests",
+          "name": "stop",
+          "decl": "stop(): void;"
+        }
+      ]
+    },
+    {
+      "kind": "VariableStatement",
+      "comment": "/** Renders the first child `Route` that matches the location. */",
+      "commentText": "Renders the first child `Route` that matches the location.",
+      "decl": "const Switch: (a: {}, children: LazyVirtualNode[]) => LazyVirtualNode;",
+      "name": "Switch",
+      "keyword": "const"
+    }
+  ],
+  "version": "0.1.16"
+}
