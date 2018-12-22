@@ -204,7 +204,22 @@
       "commentText": "Interface of the object that owns a `hyperoop.IRenderer` and can\r\n possibly handle location change events.",
       "name": "IRendererOwner",
       "decl": "interface IRendererOwner",
-      "children": []
+      "children": [
+        {
+          "kind": "PropertySignature",
+          "comment": "/** If this function presents then it will be called instead of `Renderer.scheduleRender` */",
+          "commentText": "If this function presents then it will be called instead of `Renderer.scheduleRender`",
+          "name": "onLocationChange",
+          "decl": "readonly onLocationChange?: (data: any) => void;"
+        },
+        {
+          "kind": "PropertySignature",
+          "comment": "/** Using this property `Router` can schedule page redraw when needed */",
+          "commentText": "Using this property `Router` can schedule page redraw when needed",
+          "name": "Renderer",
+          "decl": "readonly Renderer?: IRenderer;"
+        }
+      ]
     },
     {
       "kind": "ClassDeclaration",
@@ -244,5 +259,5 @@
       "keyword": "const"
     }
   ],
-  "version": "0.1.16"
+  "version": "0.1.19"
 }

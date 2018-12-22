@@ -105,11 +105,19 @@
     },
     {
       "kind": "InterfaceDeclaration",
-      "comment": "/** You may use this interface in order to manually schedule re-rendering. */",
-      "commentText": "You may use this interface in order to manually schedule re-rendering.",
+      "comment": "/** IMplementations of this interface can be used in order to manually schedule redraw. */",
+      "commentText": "IMplementations of this interface can be used in order to manually schedule redraw.",
       "name": "IRenderer",
       "decl": "interface IRenderer",
-      "children": []
+      "children": [
+        {
+          "kind": "MethodSignature",
+          "comment": "/** Function that schedules rendering */",
+          "commentText": "Function that schedules rendering",
+          "name": "scheduleRender",
+          "decl": "scheduleRender(): any;"
+        }
+      ]
     },
     {
       "kind": "InterfaceDeclaration",
@@ -117,7 +125,36 @@
       "commentText": "The VDOM representation of an `HTMLElement`.",
       "name": "IVirtualNode",
       "decl": "interface IVirtualNode<A = {}>",
-      "children": []
+      "children": [
+        {
+          "kind": "PropertySignature",
+          "comment": "/** Name of node, for example `div`, `span`, `table`, etc... */",
+          "commentText": "Name of node, for example `div`, `span`, `table`, etc...",
+          "name": "nodeName",
+          "decl": "nodeName: string;"
+        },
+        {
+          "kind": "PropertySignature",
+          "comment": "/** Attributes of virtual HTML node, like `href` in `<a href=\"#\"></a>` */",
+          "commentText": "Attributes of virtual HTML node, like `href` in `<a href=\"#\"></a>`",
+          "name": "attributes",
+          "decl": "attributes?: A;"
+        },
+        {
+          "kind": "PropertySignature",
+          "comment": "/** Child HTML nodes, for example `<span>Text</span>` is child node of\r\n     * ```html\r\n     * <div>\r\n     *   <span>Text</span>\r\n     * </div>\r\n     * ```\r\n     */",
+          "commentText": "Child HTML nodes, for example `<span>Text</span>` is child node of\r\n ```html\r\n <div>\r\n <span>Text</span>\r\n </div>\r\n ```",
+          "name": "children",
+          "decl": "children: ChildVirtualNode[];"
+        },
+        {
+          "kind": "PropertySignature",
+          "comment": "/** This is the special attribute that helps to identify nodes while DOM updates */",
+          "commentText": "This is the special attribute that helps to identify nodes while DOM updates",
+          "name": "key",
+          "decl": "key?: string;"
+        }
+      ]
     },
     {
       "kind": "TypeAliasDeclaration",
@@ -176,5 +213,5 @@
       "decl": "function h<A>(comp: LazyComponent<A>, attributes?: A, ...children: ChildLike[]): LazyVirtualNode;"
     }
   ],
-  "version": "0.4.2"
+  "version": "0.4.5"
 }
