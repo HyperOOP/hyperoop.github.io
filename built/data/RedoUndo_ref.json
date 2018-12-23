@@ -1,0 +1,64 @@
+{
+  "kind": "ModuleDeclaration",
+  "children": [
+    {
+      "kind": "TypeAliasDeclaration",
+      "comment": "/** Record of actions history. */",
+      "commentText": "Record of actions history.",
+      "name": "Record",
+      "decl": "type Record = {\r\n    /** What will be done. */\r\n    Redo: () => void;\r\n    /** What will be undone then. */\r\n    Undo: () => void;\r\n};"
+    },
+    {
+      "kind": "ClassDeclaration",
+      "comment": "/** Class that implements all functionality of history. */",
+      "commentText": "Class that implements all functionality of history.",
+      "name": "Hist",
+      "decl": "default class Hist",
+      "children": [
+        {
+          "kind": "PropertyDeclaration",
+          "comment": "/** Length of undoing history. */",
+          "commentText": "Length of undoing history.",
+          "name": "UndoLength",
+          "decl": "readonly UndoLength: number;"
+        },
+        {
+          "kind": "PropertyDeclaration",
+          "comment": "/** Length of redoing history. */",
+          "commentText": "Length of redoing history.",
+          "name": "RedoLength",
+          "decl": "readonly RedoLength: number;"
+        },
+        {
+          "kind": "MethodDeclaration",
+          "comment": "/** Add new record to a history, then `r.Redo()` will be called automatically. */",
+          "commentText": "Add new record to a history, then `r.Redo()` will be called automatically.",
+          "name": "add",
+          "decl": "add(r: Record): void;"
+        },
+        {
+          "kind": "MethodDeclaration",
+          "comment": "/** Undo the last record in a history. */",
+          "commentText": "Undo the last record in a history.",
+          "name": "undo",
+          "decl": "undo(): void;"
+        },
+        {
+          "kind": "MethodDeclaration",
+          "comment": "/** Redo last undone record and return it back to the history. */",
+          "commentText": "Redo last undone record and return it back to the history.",
+          "name": "redo",
+          "decl": "redo(): void;"
+        },
+        {
+          "kind": "MethodDeclaration",
+          "comment": "/** Clean the history. */",
+          "commentText": "Clean the history.",
+          "name": "clean",
+          "decl": "clean(): void;"
+        }
+      ]
+    }
+  ],
+  "version": "0.1.13"
+}

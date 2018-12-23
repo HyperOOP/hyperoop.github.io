@@ -20,7 +20,7 @@
           "comment": "/** Object of `redoundo.Hist` class is needed for redo/undo functionality. */",
           "commentText": "Object of `redoundo.Hist` class is needed for redo/undo functionality.",
           "name": "History",
-          "decl": "readonly History: Hist;"
+          "decl": "readonly History: IHistory;"
         }
       ]
     },
@@ -57,13 +57,13 @@
           "comment": "/** Object of `redoundo.Hist` class is needed for redo/undo functionality. */",
           "commentText": "Object of `redoundo.Hist` class is needed for redo/undo functionality.",
           "name": "History",
-          "decl": "readonly History: Hist;"
+          "decl": "readonly History: IHistory;"
         },
         {
           "kind": "Constructor",
-          "comment": "/** Construct an `Action` object, setting the initial `state` to it and optionally describing\r\n     *  the `hist` object of type `redoundo.Hist`. If the `hist` argument is of the `number`\r\n     *  type, the constructor will itself create the `History` object of the given length.\r\n     */",
-          "commentText": "Construct an `Action` object, setting the initial `state` to it and optionally describing\r\n the `hist` object of type `redoundo.Hist`. If the `hist` argument is of the `number`\r\n type, the constructor will itself create the `History` object of the given length.",
-          "decl": "constructor(start: S, hist?: number | Hist);"
+          "comment": "/** Construct an `Action` object, setting the initial `state` to it and optionally describing\r\n     *  the `hist` object of type `redoundo.Hist`.\r\n     */",
+          "commentText": "Construct an `Action` object, setting the initial `state` to it and optionally describing\r\n the `hist` object of type `redoundo.Hist`.",
+          "decl": "constructor(start: S, hist?: IHistory);"
         },
         {
           "kind": "MethodDeclaration",
@@ -93,6 +93,80 @@
           "comment": "/** Construct an `Action` object, setting the initial `state` and parental `Actions`\r\n     *  object. The last will be used for initializing new instance by renderer and history objects.\r\n     */",
           "commentText": "Construct an `Action` object, setting the initial `state` and parental `Actions`\r\n object. The last will be used for initializing new instance by renderer and history objects.",
           "decl": "constructor(start: S, parent: IActionsParent);"
+        }
+      ]
+    },
+    {
+      "kind": "InterfaceDeclaration",
+      "comment": "/** Record of actions history implemented in `redoundo.Hist`. */",
+      "commentText": "Record of actions history implemented in `redoundo.Hist`.",
+      "name": "IRecord",
+      "decl": "interface IRecord",
+      "children": [
+        {
+          "kind": "PropertySignature",
+          "comment": "/** What will be done. */",
+          "commentText": "What will be done.",
+          "name": "Redo",
+          "decl": "Redo: () => void;"
+        },
+        {
+          "kind": "PropertySignature",
+          "comment": "/** What will be undone then. */",
+          "commentText": "What will be undone then.",
+          "name": "Undo",
+          "decl": "Undo: () => void;"
+        }
+      ]
+    },
+    {
+      "kind": "InterfaceDeclaration",
+      "comment": "/** Interface of `redoundo.Hist` object. */",
+      "commentText": "Interface of `redoundo.Hist` object.",
+      "name": "IHistory",
+      "decl": "interface IHistory",
+      "children": [
+        {
+          "kind": "MethodSignature",
+          "comment": "/** Add new record to a history, then `r.Redo()` will be called automatically. */",
+          "commentText": "Add new record to a history, then `r.Redo()` will be called automatically.",
+          "name": "add",
+          "decl": "add(r: IRecord): any;"
+        },
+        {
+          "kind": "MethodSignature",
+          "comment": "/** Undo the last record in a history. */",
+          "commentText": "Undo the last record in a history.",
+          "name": "undo",
+          "decl": "undo(): any;"
+        },
+        {
+          "kind": "MethodSignature",
+          "comment": "/** Redo last undone record and return it back to the history. */",
+          "commentText": "Redo last undone record and return it back to the history.",
+          "name": "redo",
+          "decl": "redo(): any;"
+        },
+        {
+          "kind": "MethodSignature",
+          "comment": "/** Clean the history. */",
+          "commentText": "Clean the history.",
+          "name": "clean",
+          "decl": "clean(): any;"
+        },
+        {
+          "kind": "PropertySignature",
+          "comment": "/** Length of undoing history. */",
+          "commentText": "Length of undoing history.",
+          "name": "UndoLength",
+          "decl": "readonly UndoLength: number;"
+        },
+        {
+          "kind": "PropertySignature",
+          "comment": "/** Length of redoing history. */",
+          "commentText": "Length of redoing history.",
+          "name": "RedoLength",
+          "decl": "readonly RedoLength: number;"
         }
       ]
     },
@@ -213,5 +287,5 @@
       "decl": "function h<A>(comp: LazyComponent<A>, attributes?: A, ...children: ChildLike[]): LazyVirtualNode;"
     }
   ],
-  "version": "0.4.5"
+  "version": "0.5.1"
 }
