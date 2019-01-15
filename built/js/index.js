@@ -2269,7 +2269,7 @@
             h("form", { class: "uk-search uk-search-navbar" },
                 h("span", { "uk-search-icon": true, class: "ho-scaled-search-icon" }),
                 h("input", { class: "uk-search-input", type: "search", onkeyup: function (e) { return (e.keyCode === 13 ? a.onSearch() : ""); }, oninput: function (e) { return a.onSearchInput(e.target.value); }, value: a.searchValue }))))); };
-    var hyperoopGithub = "https://github.com/hyperoop/";
+    var hyperoopGithub = "https://github.com/hyperoop/hyperoop";
     var NavbarMenuUl = function (a) { return (h("ul", { class: "uk-navbar-nav" },
         a.searchArgs ?
             h(NavbarSearchLi, { onSearchInput: a.searchArgs.onSearchInput, onSearch: a.searchArgs.onSearch, searchValue: a.searchArgs.searchValue, visible: "m" }) : "",
@@ -2337,3 +2337,4 @@
     main();
 
 })));
+//# sourceMappingURL=index.js.map
