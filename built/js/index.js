@@ -1,8 +1,7 @@
-(function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
+(function (factory) {
     typeof define === 'function' && define.amd ? define(factory) :
-    (factory());
-}(this, (function () { 'use strict';
+    factory();
+}(function () { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -360,10 +359,10 @@
       globalNS.Promise.prototype['finally'] = finallyConstructor;
     }
 
-    var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+    var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
     function unwrapExports (x) {
-    	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x.default : x;
+    	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
     }
 
     function createCommonjsModule(fn, module) {
@@ -1493,6 +1492,13 @@
         return renderer;
     }
 
+    var ui = /*#__PURE__*/Object.freeze({
+        init: init,
+        h: h,
+        Actions: Actions,
+        SubActions: SubActions
+    });
+
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
     Licensed under the Apache License, Version 2.0 (the "License"); you may not use
@@ -1929,7 +1935,7 @@
         return NavbarController;
     }(Actions));
 
-    var decodeParam$1 = function (val) {
+    var decodeParam = function (val) {
         try {
             return decodeURIComponent(val);
         }
@@ -1958,7 +1964,7 @@
             var _a = [parts[i], mparts[i]], p = _a[0], u = _a[1];
             if (":" === p[0]) {
                 p = p.slice(1);
-                result.params[p] = u = decodeParam$1(u);
+                result.params[p] = u = decodeParam(u);
             }
             else if (p !== u) {
                 return null;
@@ -2104,6 +2110,7 @@
             }
             callback(endType);
             parent.removeEventListener('touchstart', endHandler, { passive: true });
+            parent.removeEventListener('wheel', endHandler, { passive: true });
         }
 
         parent._scrollSettings = {
@@ -2118,6 +2125,7 @@
 
         endHandler = end.bind(null, CANCELED);
         parent.addEventListener('touchstart', endHandler, { passive: true });
+        parent.addEventListener('wheel', endHandler, { passive: true });
 
         if(idle){
             animate(parent);
@@ -2178,7 +2186,10 @@
             parent = parent.parentElement;
 
             if(!parent){
-                return;
+                if(!parents){
+                    callback && callback(COMPLETE);
+                }
+                break;
             }
 
             if(parent.tagName === 'BODY'){
@@ -2336,5 +2347,5 @@
     }
     main();
 
-})));
+}));
 //# sourceMappingURL=index.js.map

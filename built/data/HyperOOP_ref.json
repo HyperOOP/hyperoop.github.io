@@ -287,5 +287,5 @@
       "decl": "function h<A>(comp: LazyComponent<A>, attributes?: A, ...children: ChildLike[]): LazyVirtualNode;"
     }
   ],
-  "version": "0.5.2"
+  "version": "1.0.0"
 }
